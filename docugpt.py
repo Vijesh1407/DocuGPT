@@ -1,6 +1,6 @@
 import streamlit as st
 from PyPDF2 import PdfReader
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_core.embeddings import Embeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.question_answering import load_qa_chain
@@ -45,7 +45,7 @@ if uploaded_file is not None:
     # Step 3: Create vector store
     try:
         embeddings = LocalEmbeddings()
-        vector_store = Chroma.from_texts(chunks, embeddings)
+        vector_store = FAISS.from_texts(chunks, embeddings)
         st.success("✅ Document uploaded successfully")
     except Exception as e:
         st.error(f"❌ Error creating vector store: {e}")
